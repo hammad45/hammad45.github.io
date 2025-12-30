@@ -1,389 +1,465 @@
 <!DOCTYPE html>
-<html lang="en" style="scroll-behavior: smooth;">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Hammad Ather</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/png" href="fav.png">
+  <meta name="description" content="Hammad Ather — Research Scientist at Meta. Research in HPC, parallel I/O, performance analysis, and systems for AI/ML." />
+  <link rel="icon" type="image/png" href="fav.png" />
 
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
   <style>
-.navbar {
-  background-color: #ffffff;
-  border-bottom: 1px solid #e0e0e0;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
-  width: 100%;
-  z-index: 999;
-}
-
-.navbar-inner {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 12px 20px;
-  display: flex;
-  gap: 30px;
-  font-weight: 600;
-}
-
-.navbar a {
-  text-decoration: none;
-  color: #00539C;
-  font-size: 15px;
-  transition: all 0.2s ease;
-}
-
-.navbar a:hover {
-  color: #ff6600;
-  text-decoration: underline;
-}
-body {
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      padding: 20px;
-      padding-top: 40px;
-      color: #333;
-      line-height: 1.4;
-      font-size: 16px;
+    :root{
+      --bg: #ffffff;
+      --bg-soft:#f7f8fa;
+      --text:#1b1f24;
+      --muted:#5b6470;
+      --border:#e6e8eb;
+      --link:#00539C;
+      --accent:#ff6600;
+      --shadow: 0 10px 30px rgba(0,0,0,0.06);
+      --radius: 14px;
+      --max: 1100px;
     }
-  
-    .container {
-      display: flex;
+
+    @media (prefers-color-scheme: dark){
+      :root{
+        --bg:#0c0f14;
+        --bg-soft:#111722;
+        --text:#e8eef7;
+        --muted:#a6b2c3;
+        --border:#202a39;
+        --link:#7bb6ff;
+        --accent:#ff8a3d;
+        --shadow: 0 12px 34px rgba(0,0,0,0.35);
+      }
+      img{ filter: none; }
+    }
+
+    *{ box-sizing:border-box; }
+    html{ scroll-behavior:smooth; }
+    body{
+      margin:0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+    }
+
+    a{ color: var(--link); text-decoration: none; }
+    a:hover{ text-decoration: underline; }
+    .muted{ color: var(--muted); }
+
+    .skip-link{
+      position:absolute;
+      left:-999px;
+      top:10px;
+      background: var(--bg);
+      color: var(--text);
+      border:1px solid var(--border);
+      padding:10px 12px;
+      border-radius: 10px;
+      z-index: 9999;
+    }
+    .skip-link:focus{ left: 12px; }
+
+    /* Navbar */
+    .navbar{
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      background: rgba(255,255,255,0.85);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+    }
+    @media (prefers-color-scheme: dark){
+      .navbar{ background: rgba(12,15,20,0.75); }
+    }
+    .nav-inner{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 12px 18px;
+      display:flex;
+      align-items:center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+    }
+    .nav-links{
+      display:flex;
       flex-wrap: wrap;
-      max-width: 1100px;
-      margin: auto;
-      gap: 20px;
+      gap: 10px;
+      justify-content: flex-end;
+    }
+    .nav-links a{
+      font-weight: 600;
+      font-size: 14px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      transition: 0.15s ease;
+    }
+    .nav-links a:hover{
+      text-decoration:none;
+      background: var(--bg-soft);
+      color: var(--accent);
+    }
 
+    /* Layout */
+    .wrap{
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 22px 18px 56px;
+      display:grid;
+      grid-template-columns: 270px 1fr;
+      gap: 22px;
+      align-items:start;
     }
-  
-    .sidebar {
-      flex: 0 0 230px;
-      margin-top: 20px; 
-      border-right: 1px solid #e0e0e0;
-      padding-right: 20px;
+    @media (max-width: 900px){
+      .wrap{ grid-template-columns: 1fr; }
     }
-  
-    .profile-wrap {
-      display: flex;
+
+    /* Sidebar card */
+    .card{
+      background: var(--bg);
+      border:1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .side{
+      position: sticky;
+      top: 72px; /* below navbar */
+    }
+    @media (max-width: 900px){
+      .side{ position: static; }
+    }
+    .profile{
+      padding: 16px;
+      display:flex;
       flex-direction: column;
+      gap: 14px;
     }
-  
-    .profile-pic {
-      max-width: 100%;
-      height: auto;
-      border-radius: 8px;
+    .avatar{
+      width:100%;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      display:block;
     }
-  
-    .contact-info h1 {
-      font-size: 22px;
-      color: #00539C;
-      margin-bottom: 0px;
+    .title{
+      margin: 4px 0 0;
+      font-weight: 700;
     }
-    ol > li, ul > li {
-  margin-bottom: 12px;
-}
-  
-    .content {
-      flex: 1;
+    .meta{
+      font-size: 14px;
+      color: var(--muted);
+      margin: 8px 0 0;
+    }
+    .pill-row{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .pill{
+      font-size: 12px;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--bg-soft);
+      color: var(--text);
+      white-space: nowrap;
+    }
+
+    .icon-row{
+      display:flex;
+      gap: 12px;
+      align-items:center;
+      margin-top: 4px;
+      flex-wrap: wrap;
+    }
+    .icon-row a{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--bg-soft);
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--text);
+      text-decoration:none;
+    }
+    .icon-row a:hover{
+      border-color: color-mix(in srgb, var(--accent) 40%, var(--border));
+      color: var(--accent);
+    }
+    .icon-row img{
+      height: 18px;
+      width: 18px;
+      vertical-align: middle;
+    }
+
+    /* Main content */
+    main{
       min-width: 0;
-      max-width: 700px; /* limits line length */
-      padding-right: 10px;
-      padding-left: 10px;
-  margin-left: auto;
-  margin-right: auto;
     }
-  
-    h2 {
-      color: #00539C;
-      margin-top: 0;
+    section{
+      margin-top: 18px;
     }
-  
-    a {
-      color: #00539C;
-      text-decoration: none;
+    .hero{
+      padding: 18px 18px 6px;
     }
-  
-    a:hover {
-      text-decoration: underline;
+    .hero h1{
+      font-size: 28px;
+      margin: 0 0 6px;
+      letter-spacing: -0.2px;
     }
-    
-    .section {
+    .hero p{
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .section-card{
+      padding: 18px;
+    }
+    h2{
+      margin: 0 0 10px;
+      font-size: 18px;
+      letter-spacing: -0.1px;
+    }
+    .divider{
+      height:1px;
+      background: var(--border);
+      margin: 14px 0;
+    }
+
+    .list{
+      margin: 0;
+      padding-left: 18px;
+    }
+    .list li{ margin: 8px 0; }
+    .date{
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    .pubs ol{ padding-left: 18px; margin: 0; }
+    .pubs li{ margin: 10px 0 14px; }
+    .pubs .venue{ color: var(--muted); }
+
+    footer{
+      max-width: var(--max);
+      margin: 26px auto 0;
+      padding: 0 18px 30px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    /* Subtle reveal */
+    .reveal{
       opacity: 0;
-      transform: translateY(20px);
-      animation: fadeIn 0.6s ease forwards;
-      animation-delay: 0.2s;
-      text-align: justify;
+      transform: translateY(10px);
+      animation: fadeUp 0.5s ease forwards;
     }
-    @keyframes fadeIn {
-      to {
-        opacity: 1;
-        transform: none;
-      }
+    @keyframes fadeUp{
+      to{ opacity: 1; transform: none; }
     }
-    /* .section {
-      margin-bottom: 20px;
-      
-    } */
-  
-    .contact a {
-      margin-right: 15px;
-    }
-  
-    .small {
-      font-size: 0.9em;
-      color: #555;
-    }
-    h2 {
-  color: #00539C;
-  font-size: 1.4em;
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 2px;
-  margin-top: 20px;
-}
-.small {
-  font-size: 0.9em;
-  color: #777;
-  text-align: left;
-  margin-top: 30px;
-}
-    /* Mobile Responsiveness */
-    @media screen and (max-width: 768px) {
-
-  .navbar-inner {
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 16px;
-    padding: 10px;
-  }
-
-  .navbar a {
-    font-size: 15px;
-    padding: 8px 12px;
-  }
-      body {
-    font-size: 15px;
-  }
-      .container {
-        flex-direction: column;
-        padding-right: 20px;
-        gap: 10px;
-      }
-  
-      .sidebar {
-        flex: none;
-        width: 100%;
-       border-right: none;
-        
-      }
-      
-      .content {
-    max-width: 700px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-      /* .content {
-        flex: none;
-        width: 100%;
-        margin-left: auto;
-        margin-right: auto;
-      } */
-  
-      .profile-wrap {
-        flex-direction: row;
-        align-items: center;
-        gap: 15px;
-      }
-  
-      .section {
-        margin-bottom: 20px;
-      }
-      .profile-pic {
-        width: 130px;
-        flex-shrink: 0;
-        border-radius: 8px;
-        margin-bottom: 2px; /* reduce spacing under image */
-
-      }
-      .social-icons {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 8px; /* 👈 Adds vertical space between icons */
-  margin-top: 6px;
-}
-    
-      .contact-info {
-        font-size: 14px;
-      }
-
-
-.social-icons a {
-  margin: 0 10px;
-  gap: 10px;
-  display: inline-block;
-}
-    }
-
   </style>
-  
-  
 </head>
 
-
-
 <body>
+  <a class="skip-link" href="#content">Skip to content</a>
 
-  <div class="container">
-    <div class="navbar">
-      <div class="navbar-inner">
-        <a href="index.html#home">Home</a>
-        <a href="index.html#news">News</a>
-        <a href="index.html#publications">Publications</a>
-        <a href="https://drive.google.com/file/d/1U-9zz9Z1s-JPJRZhPZqhOPsLpjO9T4Lu/view?usp=sharing" target="_blank">CV</a>
-
+  <header class="navbar" role="banner">
+    <div class="nav-inner">
+      <div class="brand">
+        <span aria-hidden="true">👋</span>
+        <span>Hammad Ather</span>
       </div>
+      <nav class="nav-links" aria-label="Primary">
+        <a href="#about">About</a>
+        <a href="#research">Research</a>
+        <a href="#news">News</a>
+        <a href="#publications">Publications</a>
+        <a href="#teaching">Teaching</a>
+        <a href="#contact">Contact</a>
+        <a href="https://drive.google.com/file/d/1U-9zz9Z1s-JPJRZhPZqhOPsLpjO9T4Lu/view?usp=sharing" target="_blank" rel="noopener">CV</a>
+      </nav>
     </div>
-    <!-- LEFT SIDEBAR -->
-    <div class="sidebar">
-      <div class="profile-wrap">
-        <img src="pic.jpg" alt="Hammad Ather" class="profile-pic">
+  </header>
 
-        <div class="contact-info">
-          <h1>Hammad Ather</h1>
-          <p><strong>Computer Science Ph.D. Candidate</strong> @ University of Oregon</p>
-          <p>
-            207B Deschutes Hall<br>1477 E 13th Ave<br>
-            Eugene, OR 97403
-          </p>
-          <p><a href="mailto:hather@cs.uoregon.edu">hather@uoregon.edu</a></p>
+  <div class="wrap">
+    <!-- Sidebar -->
+    <aside class="side card" aria-label="Profile">
+      <div class="profile">
+        <img src="pic.jpg" alt="Portrait of Hammad Ather" class="avatar" />
+
+        <div>
+          <div class="title">Research Scientist @ Meta</div>
+          <div class="meta">Ph.D., Computer Science — University of Oregon</div>
+
+          <div class="pill-row" aria-label="Research keywords">
+            <span class="pill">HPC</span>
+            <span class="pill">Parallel I/O</span>
+            <span class="pill">Performance</span>
+            <span class="pill">AI/ML Systems</span>
+          </div>
         </div>
-        <div  class="social-icons" style="font-size: 20px;">
-          <a href="https://github.com/hammad45" target="_blank" style="margin-right: 15px;" title="GitHub">
-            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg" alt="GitHub" style="height: 24px; vertical-align: middle;">
-          </a>
-          <a href="https://www.linkedin.com/in/hammad-ather/" target="_blank" style="margin-right: 15px;" title="LinkedIn">
-            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg" alt="LinkedIn" style="height: 24px; vertical-align: middle;">
-          </a>
-          <a href="https://scholar.google.com/citations?user=yourScholarID&user=fe9ZlH0AAAAJ" target="_blank" title="Google Scholar">
-            <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/googlescholar.svg" alt="Google Scholar" style="height: 24px; vertical-align: middle;">
-          </a>
+
+        <div class="divider" role="presentation"></div>
+
+        <div id="contact">
+          <h2 style="margin-bottom:8px;">Contact</h2>
+          <div class="muted" style="font-size:14px; margin-bottom:10px;">
+            <div><a href="mailto:hather@uoregon.edu">hather@uoregon.edu</a></div>
+            <div style="margin-top:6px;">Menlo Park, CA (SF Bay Area)</div>
+          </div>
+
+          <div class="icon-row" aria-label="Links">
+            <a href="https://github.com/hammad45" target="_blank" rel="noopener" title="GitHub">
+              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg" alt="" aria-hidden="true">
+              GitHub
+            </a>
+            <a href="https://www.linkedin.com/in/hammad-ather/" target="_blank" rel="noopener" title="LinkedIn">
+              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg" alt="" aria-hidden="true">
+              LinkedIn
+            </a>
+            <a href="https://scholar.google.com/citations?user=fe9ZlH0AAAAJ" target="_blank" rel="noopener" title="Google Scholar">
+              <img src="https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/googlescholar.svg" alt="" aria-hidden="true">
+              Scholar
+            </a>
+          </div>
         </div>
       </div>
+    </aside>
 
+    <!-- Main -->
+    <main id="content" aria-label="Main content">
+      <section class="card hero reveal" style="animation-delay: 0.05s;">
+        <h1>Hi — I’m Hammad.</h1>
+        <p>
+          I’m a Research Scientist at <a href="https://www.meta.com/" target="_blank" rel="noopener">Meta</a> working on large-scale systems.
+          My research background is in high-performance computing, parallel I/O, performance analysis, and systems for AI/ML.
+        </p>
+      </section>
 
-    </div>
+      <section id="about" class="card section-card reveal" style="animation-delay: 0.12s;">
+        <h2>About</h2>
+        <p>
+          I completed my Ph.D. in Computer Science at the University of Oregon, where I was co-advised by
+          <a href="https://cdux.cs.uoregon.edu/childs.html" target="_blank" rel="noopener">Dr. Hank Childs</a> and
+          <a href="https://cas.uoregon.edu/directory/computer-and-data-sciences/all/malony" target="_blank" rel="noopener">Dr. Allen D. Malony</a>.
+          Prior to that, I earned my B.S. in Computer Science from National University of Computer and Emerging Sciences (FAST-NU) in 2018.
+        </p>
+      </section>
 
-      <!-- MAIN CONTENT -->
-      <div style="flex: 1;">
-        <!-- Keep your existing content here -->
-        <!-- Start of main content -->
-        <div class="section" id="home">
+      <section id="research" class="card section-card reveal" style="animation-delay: 0.18s;">
+        <h2>Research</h2>
+        <p>
+          My work focuses on end-to-end analysis, visualization, and optimization of parallel I/O performance in scientific and AI/ML workloads.
+          I have collaborated with U.S. national laboratories including Fermilab, Lawrence Livermore, and Lawrence Berkeley on projects that
+          improve I/O efficiency for data-intensive HPC and AI/ML applications.
+        </p>
+      </section>
 
-            <h2>About Me</h2>
-            <p class="text-justify">
-                I am a 5th year PhD candidate in Computer Science, co-advised by <a href="https://cdux.cs.uoregon.edu/childs.html" target="_blank" class="cv-link">Dr. Hank Childs</a> and <a href="https://cas.uoregon.edu/directory/computer-and-data-sciences/all/malony" target="_blank" class="cv-link">Dr. Allen D. Malony</a>, at the University of Oregon. Prior to joining the University of Oregon, I received my Bachelors in Computer Science from National University of Computer and Emerging Sciences (FAST-NU) in 2018.
-            </p>  
-            </div>
-        
-            <div class="section" id="#research">
-                <h2>Research Interests</h2>
-                <p class="text-justify">
-                    My research interests lie in high-performance computing (HPC), performance analysis, parallel I/O, visualization,
-                    and systems for AI/ML. My work focuses on end-to-end analysis, visualization, and optimization of parallel I/O performance in scientific and AI/ML workloads. I have collaborated with several U.S. national laboratories—including
-                    Fermilab, Lawrence Livermore, and Lawrence Berkeley—on projects aimed at improving I/O performance in data
-                    intensive HPC and AI/ML applications. 
-                    </p>
-                    <!-- <p>            My CV can be found <a href="https://drive.google.com/file/d/1U-9zz9Z1s-JPJRZhPZqhOPsLpjO9T4Lu/view?usp=sharing" target="_blank" class="cv-link">here</a>. </p> -->
-                </div>
-        
-          <div class="section" id="news">
-            <h2>News</h2>
-            <ul>
-              <li><span style="color: red;">[June 2025] </span> Will be joining </span> <a href="https://www.meta.com/" target="_blank" class="llnl">Meta</a> as a Ph.D. Software Engineer Intern.</li>
-              <li> <span style="color: red;">[Nov 2024] </span> Presented my doctoral research at <a href="https://sc24.supercomputing.org/program/posters/doctoral-showcase/" target="_blank" class="llnl">SC 2024 Doctoral Showcase.</a> </li>
-              <li> <span style="color: red;">[June 2024] </span> Will be joining <a href="https://www.llnl.gov/" target="_blank" class="llnl">Lawrence Livermore National Lab</a> as a Computing Graduate Student Intern.</li>
-              <li> <span style="color: red;">[April 2024] </span> Passed Ph.D. candidacy exam.</li>
-              <li> <span style="color: red;">[Feb 2024] </span>  <i>Drilling Down I/O Bottlenecks with Cross-Layer I/O Profile Exploration</i> accepted at IPDPS 2024.</li>
-              <li> <span style="color: red;">[June 2023] </span> Will be joining <a href="https://www.lbl.gov/" target="_blank" class="llnl">Lawrence Berkeley National Lab</a> as a Research Intern.</li>
-              <li> <span style="color: red;">[Feb 2023] </span>  <i>Illuminating the I/O Optimization Path of Scientific Applications</i> accepted at ISC 2023.</li>
-              <li> <span style="color: red;">[June 2022] </span> Will be joining <a href="https://www.lbl.gov/" target="_blank" class="llnl">Lawrence Berkeley National Lab</a> as a Research Intern.</li>
-        
-            </ul>
-          </div>
-        
-          <div class="section" id="publications">
-            <h2>Publications</h2>
-            <ol>
-              <li>
-                <strong>SmartIO: A Lightweight End-to-End Workflow for Runtime I/O Optimization of HPC Systems</strong><br>
-                <span class="highlight-name">H. Ather</span>, C. Wang, H. Devarajan, H. Childs, and K. Mohror<br> 
-                <em>10th International
-                  Parallel Data Systems Workshop</em> (PDSW), 2025
-                [<a href="https://dl.acm.org/doi/pdf/10.1145/3731599.3767509" target="_blank">Paper</a>]<br>
-              </li>
-              <li>
-                <strong>Drilling Down I/O Bottlenecks with Cross-layer I/O Profile Exploration</strong><br>
-                <span class="highlight-name">H. Ather*</span>, J. L. Bez*, Y. Xia, and S. Byna <span style="font-size: 0.7em;"> * Joint first co-authors</span><br> 
-                <em>38th IEEE International Parallel &
-                    Distributed Processing Symposium</em> (IPDPS), 2024
-                [<a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=10579210" target="_blank">Paper</a>]<br>
-              </li>
-              <li>
-                <strong>Exploring code portability solutions for HEP with a particle tracking test code</strong><br>
-                <span class="highlight-name">H. Ather</span> et al.<br>
-                <em>Frontiers in Big Data</em>, 2024
-                [<a href="https://www.frontiersin.org/journals/big-data/articles/10.3389/fdata.2024.1485344/pdf" target="_blank">Paper</a>]<br>
-              </li>
-              <li>
-                <strong>Application of performance portability solutions for GPUs and many-core CPUs to track reconstruction kernels</strong><br>
-                <span class="highlight-name">H. Ather</span> et al.<br>
-                <em>CHEP</em>, 2023
-                [<a href="https://www.epj-conferences.org/articles/epjconf/pdf/2024/05/epjconf_chep2024_11003.pdf" target="_blank">Paper</a>]<br>
-              </li>
-              <li>
-                <strong>Illuminating the I/O Optimization Path of Scientific Applications</strong><br>
-                <span class="highlight-name">H. Ather</span>, J. L. Bez, B. Norris, S. Byna<br>
-                <em>ISC</em>, 2023
-                [<a href="https://sbyna.github.io/research/papers/2023/2023-05-Illuminating-IO-Optimization-ISC-paper.pdf" target="_blank">Paper</a>]<br>
-              </li>
-              <li>
-                <strong>Application in multimedia: from camera to VR</strong><br>
-                A. Wali, A. Lisan, <span class="highlight-name">H. Ather</span>, M. Qasim, M.U. Abid<br>
-                <em>Multimedia Tools Application</em>, 2023
-                [<a href="https://libkey.io/libraries/38/openurl?sid=google&auinit=A&aulast=Wali&atitle=Application+in+multimedia:+from+camera+to+vr&id=doi:10.1007/s11042-022-13687-1&title=Multimedia+tools+and+applications.&volume=82&issue=8&date=2023&spage=11721&issn=1380-7501" target="_blank">Paper</a>]<br>
-              </li>
-              <li>
-                <strong>Drishti: Guiding End-Users in the I/O Optimization Journey</strong><br>
-                J. L. Bez, <span class="highlight-name">H. Ather</span>, and S. Byna<br>
-                <em>7th International Parallel Data Systems Workshop</em> (PDSW), 2022
-                [<a href="https://ieeexplore.ieee.org/iel7/10026848/10026896/10027144.pdf" target="_blank">Paper</a>]<br>
-              </li>
-            </ol>
-          </div>
-          
-        
-          <div class="section">
-            <h2>Teaching</h2>
-            <ul>
-              <li>CS 422: Software Method I (TA, Fall 2024)</li>
-              <li>CS 330: C/C++ and Unix (TA, Spring 2024)</li>
-              <li>CS 330: C/C++ and Unix (TA, Winter 2024)</li>
-              <li>CS 429/529: Computer Architecture (TA, Winter 2024)</li>
-              <li>CS 422: Software Method I (TA, Fall 2023)</li>
-              <li>CS 212: Computer Science III (TA, Spring 2021)</li>
-            </ul>
-          </div>
+      <section id="news" class="card section-card reveal" style="animation-delay: 0.24s;">
+        <h2>News</h2>
+        <ul class="list">
+          <li><span class="date">[2025]</span> Completed my Ph.D. in Computer Science at the University of Oregon.</li>
+          <li><span class="date">[2025]</span> Joined <a href="https://www.meta.com/" target="_blank" rel="noopener">Meta</a> as a Research Scientist.</li>
+          <li><span class="date">[Nov 2024]</span> Presented my doctoral research at the <a href="https://sc24.supercomputing.org/program/posters/doctoral-showcase/" target="_blank" rel="noopener">SC 2024 Doctoral Showcase</a>.</li>
+          <li><span class="date">[June 2024]</span> Joined <a href="https://www.llnl.gov/" target="_blank" rel="noopener">Lawrence Livermore National Laboratory</a> as a Computing Graduate Student Intern.</li>
+          <li><span class="date">[Feb 2024]</span> <em>Drilling Down I/O Bottlenecks with Cross-Layer I/O Profile Exploration</em> accepted at IPDPS 2024.</li>
+          <li><span class="date">[June 2023]</span> Joined <a href="https://www.lbl.gov/" target="_blank" rel="noopener">Lawrence Berkeley National Laboratory</a> as a Research Intern.</li>
+          <li><span class="date">[Feb 2023]</span> <em>Illuminating the I/O Optimization Path of Scientific Applications</em> accepted at ISC 2023.</li>
+          <li><span class="date">[June 2022]</span> Joined <a href="https://www.lbl.gov/" target="_blank" rel="noopener">Lawrence Berkeley National Laboratory</a> as a Research Intern.</li>
+        </ul>
+      </section>
 
-          <p class="small" id="last-updated"></p>
-          <script>
-            const updatedElement = document.getElementById("last-updated");
-            const options = { year: 'numeric', month: 'long' };
-            const now = new Date();
-            updatedElement.textContent = `Last updated: ${now.toLocaleDateString('en-US', options)}`;
-          </script>
-  
-      </div>
-    </div>
-  </body>
+      <section id="publications" class="card section-card pubs reveal" style="animation-delay: 0.30s;">
+        <h2>Publications</h2>
+        <ol>
+          <li>
+            <strong>SmartIO: A Lightweight End-to-End Workflow for Runtime I/O Optimization of HPC Systems</strong><br>
+            <span><strong>H. Ather</strong>, C. Wang, H. Devarajan, H. Childs, and K. Mohror</span><br>
+            <span class="venue"><em>10th International Parallel Data Systems Workshop</em> (PDSW), 2025</span>
+            [<a href="https://dl.acm.org/doi/pdf/10.1145/3731599.3767509" target="_blank" rel="noopener">Paper</a>]
+          </li>
+          <li>
+            <strong>Drilling Down I/O Bottlenecks with Cross-layer I/O Profile Exploration</strong><br>
+            <span><strong>H. Ather*</strong>, J. L. Bez*, Y. Xia, and S. Byna <span style="font-size: 0.85em;">(*joint first authors)</span></span><br>
+            <span class="venue"><em>38th IEEE International Parallel &amp; Distributed Processing Symposium</em> (IPDPS), 2024</span>
+            [<a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=10579210" target="_blank" rel="noopener">Paper</a>]
+          </li>
+          <li>
+            <strong>Exploring code portability solutions for HEP with a particle tracking test code</strong><br>
+            <span><strong>H. Ather</strong> et al.</span><br>
+            <span class="venue"><em>Frontiers in Big Data</em>, 2024</span>
+            [<a href="https://www.frontiersin.org/journals/big-data/articles/10.3389/fdata.2024.1485344/pdf" target="_blank" rel="noopener">Paper</a>]
+          </li>
+          <li>
+            <strong>Application of performance portability solutions for GPUs and many-core CPUs to track reconstruction kernels</strong><br>
+            <span><strong>H. Ather</strong> et al.</span><br>
+            <span class="venue"><em>CHEP</em>, 2023</span>
+            [<a href="https://www.epj-conferences.org/articles/epjconf/pdf/2024/05/epjconf_chep2024_11003.pdf" target="_blank" rel="noopener">Paper</a>]
+          </li>
+          <li>
+            <strong>Illuminating the I/O Optimization Path of Scientific Applications</strong><br>
+            <span><strong>H. Ather</strong>, J. L. Bez, B. Norris, S. Byna</span><br>
+            <span class="venue"><em>ISC</em>, 2023</span>
+            [<a href="https://sbyna.github.io/research/papers/2023/2023-05-Illuminating-IO-Optimization-ISC-paper.pdf" target="_blank" rel="noopener">Paper</a>]
+          </li>
+          <li>
+            <strong>Application in multimedia: from camera to VR</strong><br>
+            <span>A. Wali, A. Lisan, <strong>H. Ather</strong>, M. Qasim, M.U. Abid</span><br>
+            <span class="venue"><em>Multimedia Tools and Applications</em>, 2023</span>
+            [<a href="https://libkey.io/libraries/38/openurl?sid=google&auinit=A&aulast=Wali&atitle=Application+in+multimedia:+from+camera+to+vr&id=doi:10.1007/s11042-022-13687-1&title=Multimedia+tools+and+applications.&volume=82&issue=8&date=2023&spage=11721&issn=1380-7501" target="_blank" rel="noopener">Paper</a>]
+          </li>
+          <li>
+            <strong>Drishti: Guiding End-Users in the I/O Optimization Journey</strong><br>
+            <span>J. L. Bez, <strong>H. Ather</strong>, and S. Byna</span><br>
+            <span class="venue"><em>7th International Parallel Data Systems Workshop</em> (PDSW), 2022</span>
+            [<a href="https://ieeexplore.ieee.org/iel7/10026848/10026896/10027144.pdf" target="_blank" rel="noopener">Paper</a>]
+          </li>
+        </ol>
+      </section>
+
+      <section id="teaching" class="card section-card reveal" style="animation-delay: 0.36s;">
+        <h2>Teaching</h2>
+        <ul class="list">
+          <li>CS 422: Software Method I (TA, Fall 2024)</li>
+          <li>CS 330: C/C++ and Unix (TA, Spring 2024)</li>
+          <li>CS 330: C/C++ and Unix (TA, Winter 2024)</li>
+          <li>CS 429/529: Computer Architecture (TA, Winter 2024)</li>
+          <li>CS 422: Software Method I (TA, Fall 2023)</li>
+          <li>CS 212: Computer Science III (TA, Spring 2021)</li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <span id="last-updated"></span>
+  </footer>
+
+  <script>
+    const el = document.getElementById("last-updated");
+    const now = new Date();
+    const options = { year: "numeric", month: "long" };
+    el.textContent = `Last updated: ${now.toLocaleDateString("en-US", options)}`;
+  </script>
+</body>
 </html>
