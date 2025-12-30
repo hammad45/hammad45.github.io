@@ -151,10 +151,12 @@
       gap: 14px;
     }
     .avatar{
-      width:100%;
+      width: 180px;          /* smaller fixed size */
+      max-width: 100%;
+      margin: 0 auto;        /* center it */
       border-radius: 12px;
       border: 1px solid var(--border);
-      display:block;
+      display: block;
     }
     .title{
       margin: 4px 0 0;
@@ -277,6 +279,53 @@
     @keyframes fadeUp{
       to{ opacity: 1; transform: none; }
     }
+    /* ===== Mobile optimizations ===== */
+@media (max-width: 768px) {
+
+  /* Stack layout cleanly */
+  .wrap{
+    grid-template-columns: 1fr;
+    padding-top: 12px;
+  }
+
+  /* Sidebar becomes normal flow */
+  .side{
+    position: static;
+  }
+
+  /* Center profile content */
+  .profile{
+    text-align: center;
+  }
+
+  .pill-row{
+    justify-content: center;
+  }
+
+  .icon-row{
+    justify-content: center;
+  }
+
+  /* Slightly smaller hero text */
+  .hero h1{
+    font-size: 24px;
+  }
+
+  /* Improve reading comfort */
+  body{
+    font-size: 15px;
+  }
+
+  /* Navigation spacing */
+  .nav-links{
+    justify-content: center;
+  }
+}
+@media (max-width: 480px) {
+  .avatar{
+    width: 140px;
+  }
+}
   </style>
 </head>
 
